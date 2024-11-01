@@ -11,26 +11,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div id="mapId" style="height: 40%;"></div> <!-- Ajustez la hauteur de la carte ici -->
+  
   <!-- Filtre de recherche -->
-  <ion-item>
-    <ion-input [(ngModel)]="filter.date" placeholder="Date" (ionInput)="applyFilters()" clearInput></ion-input>
-    <ion-input [(ngModel)]="filter.location" placeholder="Location" (ionInput)="applyFilters()" clearInput></ion-input>
-    <ion-select [(ngModel)]="filter.type" placeholder="Type" (ionChange)="applyFilters()">
-      <ion-select-option value="Football">Football</ion-select-option>
-      <ion-select-option value="Basketball">Basketball</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <!-- Carte -->
-  <div id="map" style="height: 400px;"></div>
+  <ion-list>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-input [(ngModel)]="filter.date" (ionInput)="applyFilters()" placeholder="YYYY-MM-DD"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-input [(ngModel)]="filter.location" (ionInput)="applyFilters()" placeholder="Location"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-select [(ngModel)]="filter.type" (ionChange)="applyFilters()">
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option value="type1">Type 1</ion-select-option>
+        <ion-select-option value="type2">Type 2</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 
   <!-- Liste des événements -->
   <ion-list>
     <ion-item *ngFor="let event of filteredEvents" (click)="viewEvent(event)">
       <ion-label>
         <h2>{{ event.title }}</h2>
-        <p>{{ event.date }}</p>
-        <p>{{ event.location }}</p>
+        <p>{{ event.date }} - {{ event.location }}</p>
       </ion-label>
       <ion-buttons slot="end">
         <ion-button fill="outline" color="primary" (click)="editEvent(event); $event.stopPropagation();">Edit</ion-button>

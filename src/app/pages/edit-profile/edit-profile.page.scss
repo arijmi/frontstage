@@ -1,0 +1,140 @@
+.edit-profile-container {
+  padding: 16px; // Ajouter du padding autour de la zone de profil
+
+  .profile-image-container {
+    display: flex;
+    flex-direction: column; // Placer le bouton sous l'image
+    justify-content: center; // Centrer verticalement
+    align-items: center; // Centrer horizontalement
+    width: 100%;
+    margin-top: 20px; // Un petit espace en haut si nécessaire
+
+    .profile-image {
+      width: 80px; // Ajustez la taille de l'image
+      height: 80px; // Ajustez la taille de l'image
+      border-radius: 50%; // Rendre l'image circulaire
+      margin-bottom: 15px; // Espacement entre l'image et le bouton
+    }
+  }
+  .custom-change-image-button {
+    width: 150px; /* Largeur fixe */
+    height: 45px; /* Hauteur fixe */
+    padding: 0 16px; /* Padding gauche et droite */
+    border-radius: 35px; /* Arrondi des coins */
+    background: #4DA768; /* Couleur de fond */
+    border: 1px solid #00000040; /* Bordure avec couleur semi-transparente */
+    display: flex; /* Utilise flexbox pour le centrage du texte */
+    align-items: center; /* Centre verticalement */
+    justify-content: center; /* Centre horizontalement */
+    margin-bottom: 50px;
+    --border-color: transparent;
+    --border-style: solid;
+    --box-shadow: none; /* Pas d'ombre */
+  
+    ion-label {
+      margin: 0; /* Retire le margin par défaut */
+      font-family: 'Inter', sans-serif; /* Police de caractères */
+      font-size: 16px; /* Taille de la police */
+      font-weight: 400; /* Poids de la police */
+      color: #FFFFFF; /* Couleur du texte */
+    }
+  
+    &.expanded {
+      --padding-start: 0;
+      --padding-end: 0;
+      --inner-padding: 0;
+    }
+  
+    /* Assurer que les variables CSS n'affectent pas le style */
+    --background: #4DA768 !important;
+    --color: #FFFFFF !important;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 299px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  
+  ion-item {
+    width: 100%;
+    height: 49px;
+    padding: 0;
+    margin-bottom: 16px; // Espace entre chaque ion-item
+    border-radius: 15px;
+    border: 1px solid #4DA768;;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative; /* Nécessaire pour que l'icône utilise position: absolute */
+    
+    ion-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16.94px;
+      color: #5F5F5F;
+    }
+  
+    ion-input {
+      margin-left: 10px; /* Ajustez l'espacement si nécessaire */
+      flex-grow: 1; /* Pour que l'input prenne tout l'espace disponible */
+    }
+  
+    &:last-child {
+      margin-bottom: 0; // Retire le margin-bottom pour le dernier élément
+    }
+  }
+  
+  
+  .profile-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 382px; // Si nécessaire, sinon réévaluez cette valeur
+    margin-left: 28px; // Si nécessaire, sinon réévaluez cette valeur
+  }
+
+
+}
+.custom-save-button {
+  width: 299px; /* Largeur fixe */
+  height: 45px; /* Hauteur fixe */
+  padding: 0 16px; /* Padding gauche et droite */
+  border-radius: 35px; /* Arrondi des coins */
+  background: #4DA768; /* Couleur de fond */
+  border: 1px solid #00000040; /* Bordure avec couleur semi-transparente */
+  display: flex; /* Utilise flexbox pour le centrage du texte */
+  align-items: center; /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
+  --border-color: transparent;
+  --border-style: solid;
+  --box-shadow: none; /* Pas d'ombre */
+
+  ion-label {
+    margin: 0; /* Retire le margin par défaut */
+    font-family: 'Inter', sans-serif; /* Police de caractères */
+    font-size: 16px; /* Taille de la police */
+    font-weight: 400; /* Poids de la police */
+    color: #FFFFFF; /* Couleur du texte */
+  }
+
+  &.expanded {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding: 0;
+  }
+
+  /* Assurer que les variables CSS n'affectent pas le style */
+  --background: #4DA768 !important;
+  --color: #FFFFFF !important;
+}
+
+
+ion-button::part(native) {
+  text-transform: none !important;
+}

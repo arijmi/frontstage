@@ -1,63 +1,84 @@
+.input-footer {
+  background-color: transparent;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  border: 1px solid #4DA768;
+  border-radius: 25px;
+  background-color: white;
+  padding: 5px; /* Ajouté pour l'espacement interne */
+}
+
+.custom-input {
+  flex: 1; /* S'étend pour occuper l'espace disponible */
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --border-width: 0;
+  --box-shadow: none;
+  --background: transparent;
+  min-height: 20px;
+  max-height: 80px;
+  font-size: 16px;
+}
+
+.add-icon,
+.smile-icon {
+  color: #4DA768;
+  margin-right: 10px; /* Espacement entre les icônes et l'input */
+}
+
+.send-button {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.send-button ion-icon {
+  color: white!important;
+  font-size: 24px !important;
+}
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #f9f9f9;
-  }
-  
-  .message-list {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-  }
-  
-  .message-item {
-    display: flex;
-    margin-bottom: 10px;
-  
-    &.sent {
-      justify-content: flex-end;
-    }
-  
-    &.received {
-      justify-content: flex-start;
-    }
-  
-    .message-bubble {
-      max-width: 70%;
-      padding: 10px;
-      border-radius: 15px;
-      background-color: #e0e0e0;
-      color: #333;
-      font-size: 14px;
-  
-      &.sent {
-        background-color: #4f98ff;
-        color: white;
-      }
-  
-      img {
-        max-width: 100%;
-        border-radius: 10px;
-      }
-    }
-  }
-  
-  .chat-input-bar {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-    border-top: 1px solid #ccc;
-  
-    ion-input {
-      flex: 1;
-      margin-right: 10px;
-      --padding-start: 10px;
-    }
-  
-    ion-button {
-      --background: #4f98ff;
-    }
-  }
-  
+  padding: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.message-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bubble {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  padding: 10px;
+  max-width: 80%;
+  margin-left: 10px;
+  position: relative;
+}
+
+.sent-message .bubble {
+  background-color: #4DA768;
+  color: white;
+}
+
+.received-message .bubble {
+  background-color: #e1ffc7;
+}
+
+.time {
+  font-size: 0.8em;
+  color: gray;
+  margin-left: 10px;
+}

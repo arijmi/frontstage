@@ -1,6 +1,29 @@
 .btn::part(native) { --ion-color-contrast: var(--ion-color-light)}
 .btn{
-    width: 70%;
+  width: 299px;
+ 
+  border-radius: 35px;
+  border: 1px solid #000000;
+  padding: 0px 16px;
+  background-color: #4DA768 !important;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 22px;
+  
+}
+
+ion-button {
+  --background: #4DA768 !important;
+  --color: #FFFFFF;
+  --border-width: 1px;
+  --border-color: transparent;
+  --border-style: solid;
+  --box-shadow: none;
 }
 .btnContainer{
     display: flex;
@@ -14,9 +37,11 @@
     width: 80%;
     margin: auto;
     display: flex;
+    
     justify-content: space-around;
   }
   .input {
+
     height: 2em;
     width: 2em;
     border: 2px solid #f1f1f1;
@@ -32,7 +57,8 @@
     color: #89888b;
   }
   .input:focus {
-    border: 3px solid #ffb800;
+    border: 3px solid  #4DA768;
+    ;
   }
 
   .subtitle{

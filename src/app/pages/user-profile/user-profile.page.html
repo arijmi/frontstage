@@ -1,66 +1,95 @@
-<!-- src/app/user-profile/user-profile.page.html -->
-<ion-header>
-  <ion-toolbar>
-    <ion-title>User Profile</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Profile Information</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input [(ngModel)]="newName" [disabled]="!editMode"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="newEmail" [disabled]="!editMode"></ion-input>
-      </ion-item>
+<ion-content class="ion-page">
+  <div style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px;">
+    <ion-back-button style="position: absolute; left: 10px; color: black;" icon-only="true" defaultHref="/"></ion-back-button>
+    <h2 style="text-align: center; color: #000; margin: 0;"> Profile</h2>
+  </div>
+  <div *ngIf="userProfile">
+    <div class="profile-container">
+      <img [src]="userProfile.avatarUrl || 'assets/images/Ellipse 8.png'" alt="Avatar" class="profile-avatar" />
 
-      <ion-button expand="full" (click)="toggleEdit()">
-        {{ editMode ? 'Cancel' : 'Edit' }}
+  <div class="profile-details">
+    <h2 class="profile-name">{{ userProfile.name }}</h2>
+    <p class="profile-email">Email: {{ userProfile.email }}</p>
+  </div>
+</div>
+
+    <!-- Affichage des statistiques -->
+    <ion-card class="profile-card">
+      <ion-card class="performance-card">
+        <div class="performance-content">
+          <div class="performance-text">
+            <p>weekly</p>
+            <p>performance</p>
+          </div>
+          <div class="progress-circle">
+            <div class="circle-text">30%</div>
+          </div>
+        </div>
+      </ion-card>
+      
+    
+  
+      
+      <ion-button expand="block" class="add-match-button" (click)="addMatch($event)">
+        <ion-icon slot="start" name="basketball-outline"></ion-icon>
+        <span class="button-text">Add Match</span>
+        <ion-icon slot="end" class="icon-end" name="chevron-forward-outline"></ion-icon>
       </ion-button>
-      <ion-button expand="full" *ngIf="editMode" (click)="saveChanges()">
-        Save Changes
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+      
+<ion-button expand="block" class="edit-profile-button" (click)="editProfile($event)">
+  <ion-icon slot="start" name="create-outline"></ion-icon>
+  <span class="button-text">Edit Profile</span>
+  <ion-icon slot="end" class="icon-end" name="chevron-forward-outline"></ion-icon>
+</ion-button>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Match History</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let match of userProfile.matches">
-          <ion-label>
-            <h2>{{ match.title }}</h2>
-            <p>Date: {{ match.date }}</p>
-            <p>Location: {{ match.location }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Ratings</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let rating of userProfile.ratings">
-          <ion-label>
-            <h2>Match ID: {{ rating.matchId }}</h2>
-            <p>Rating: {{ rating.rating }}</p>
-            <p>Comment: {{ rating.comment }}</p>
-          </ion-label>
+<ion-button expand="block" class="logout-button" (click)="logout($event)">
+  <ion-icon slot="start" name="log-out-outline"></ion-icon>
+  <span class="button-text">Logout</span>
+  <ion-icon slot="end" class="icon-end" name="chevron-forward-outline"></ion-icon>
+</ion-button>
+
+
+      
+      
+      <div *ngIf="editMode">
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input [(ngModel)]="newName"></ion-input>
         </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-input [(ngModel)]="newEmail"></ion-input>
+        </ion-item>
+        <ion-button (click)="saveChanges()">Save</ion-button>
+        <ion-button (click)="toggleEdit()">Cancel</ion-button>
+      </div>
+    </ion-card>
+    
+  </div>
 </ion-content>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" [routerLink]="['/home']">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="notifications" [routerLink]="['/notifications']">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-label>Notifications</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="your-match" [routerLink]="['/your-match']">
+      <ion-icon name="basketball-outline"></ion-icon>
+      <ion-label>Your Match</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" [routerLink]="['/user-profile']">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

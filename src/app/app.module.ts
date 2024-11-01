@@ -9,10 +9,15 @@ import { AuthServiceService } from './auth-service.service';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EventService } from './services/event.service';
+import { UserService } from './services/user.service';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    FormsModule,
     BrowserModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),
@@ -20,7 +25,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     AngularFireModule.initializeApp(environment.firebaseConfig), // Utilisation de l'API compat
     AngularFireAuthModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },EventService,AuthServiceService,UserService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

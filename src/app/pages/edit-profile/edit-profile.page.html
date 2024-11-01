@@ -1,0 +1,40 @@
+
+
+<ion-content>
+  <div style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px;">
+    <ion-back-button style="position: absolute; left: 10px; color: black;" icon-only="true" defaultHref="/"></ion-back-button>
+    <h2 style="text-align: center; color: #000; margin: 0;">Edit Profile</h2>
+  </div>
+  <div class="edit-profile-container">
+    <!-- Image de profil -->
+    <div class="profile-image-container">
+      <img [src]="userProfile.avatarUrl || 'assets/images/Ellipse 8.png'" alt="Profile Image" class="profile-image" />
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput />
+      <ion-button (click)="fileInput.click()" fill="outline" class="custom-change-image-button">Change Image</ion-button>
+    </div>
+
+    <!-- Formulaire d'édition de profil -->
+    <form (ngSubmit)="saveChanges()"> <!-- Utiliser (ngSubmit) pour gérer la soumission -->
+      <!-- Champ pour le nom -->
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input [(ngModel)]="userProfile.name" placeholder="Enter your name" name="name"></ion-input>
+      </ion-item>
+      
+      <!-- Champ pour l'email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="userProfile.email" placeholder="Enter your email" type="email" name="email"></ion-input>
+      </ion-item>
+
+      <!-- Champ pour le numéro de téléphone -->
+      <ion-item>
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input [(ngModel)]="userProfile.phone" placeholder="Enter your phone number" type="tel" name="phone"></ion-input>
+      </ion-item>
+
+      <!-- Bouton pour sauvegarder les modifications -->
+      <ion-button expand="full" type="submit" class="custom-save-button">Save Changes</ion-button>
+    </form>
+  </div>
+</ion-content>

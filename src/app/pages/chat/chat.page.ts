@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat',
@@ -6,42 +7,32 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage {
-  messages: { text?: string; imageUrl?: string; isMe: boolean; }[] = [];
-  newMessage: string = '';
-  selectedImage: File | null = null;
+  chats = [
+    { name: 'Cristiano Ronaldo', message: 'Hello!', time: '12:30 PM', image: 'assets/images/foot1.jpg', status: 'online' },
+    { name: 'Jane Smith', message: 'How are you?', time: '1:15 PM', image: 'assets/images/foot6.PNG', status: 'offline' },
+    { name: 'Sam Wilson', message: 'Let’s meet up.', time: '2:00 PM', image: 'assets/images/foot5.png', status: 'online' },
+    { name: 'Sam Wilson', message: 'Let’s meet up.', time: '2:00 PM', image: 'assets/images/foot2.jpg', status: 'online' },
+    { name: 'Sam Wilson', message: 'Let’s meet up.', time: '2:00 PM', image: 'assets/images/foot3.jpg', status: 'online' },
 
-  @ViewChild('fileInput', { static: false }) fileInput: ElementRef<HTMLInputElement>;
+    // Ajoutez plus de chats ici
+  ];
 
-  constructor() {}
+  filteredChats = [...this.chats]; // Liste des chats filtrés
 
-  sendMessage() {
-    if (this.newMessage.trim() !== '') {
-      this.messages.push({ text: this.newMessage, isMe: true });
-      this.newMessage = '';
-    }
-    if (this.selectedImage) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.messages.push({ imageUrl: e.target.result, isMe: true });
-        this.selectedImage = null; // Reset selected image
-      };
-      reader.readAsDataURL(this.selectedImage);
-    }
+  constructor(private navCtrl: NavController) {}
+
+  // Méthode de recherche
+  filterFriends(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredChats = this.chats.filter(chat => 
+      chat.name.toLowerCase().includes(searchTerm)
+    );
   }
 
-  addPhoto() {
-    this.fileInput.nativeElement.click();
-  }
-
-  addFile() {
-    console.log('Add file clicked');
-    // Logique pour ajouter un fichier
-  }
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedImage = input.files[0];
-    }
+  // Méthode pour ouvrir la page des détails du chat
+  openChatDetail(chat: any) {
+    this.navCtrl.navigateForward('/chat-detail', {
+      queryParams: { chat: JSON.stringify(chat) }
+    });
   }
 }

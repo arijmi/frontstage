@@ -1,34 +1,126 @@
-#container {
-  text-align: center;
+/* Styles pour le header */
+:host {
+  ion-header {
+    ion-toolbar {
+      background-color: transparent;
+    }
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+    ion-toolbar {
+      background-color: white;
+
+      ion-title {
+        h1 {
+          font-size: 24px;
+          font-weight: bold;
+          margin: 0;
+          padding: 0;
+
+          .highlight {
+            color: #e74c3c; /* Changement de couleur pour la classe highlight */
+          }
+        }
+      }
+
+      ion-buttons {
+        ion-menu-button {
+          color: #000000; /* Couleur pour le bouton de menu */
+        }
+      }
+
+      ion-avatar {
+        width: 40px;
+        height: 40px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+    }
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+/* Styles pour la barre de recherche */
+ion-searchbar {
+  --background: #f3f3f3;
+  --color: #000000;
+  --placeholder-color: #888888;
+  --border-radius: 10px;
+  --border: 1px solid #4DA768; /* Ajouter la bordure avec la couleur spécifiée */
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+/* Styles pour les cartes dans la liste */
+ion-list {
+  ion-card {
+    margin-bottom: 20px; /* Espace entre les cartes */
+    border-radius: 15px; /* Arrondir les coins de la carte */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Ajouter une légère ombre */
 
-  color: #8c8c8c;
+    ion-item {
+      display: flex;
+      flex-direction: column; /* Aligner les éléments verticalement (image en haut, texte en bas) */
+      align-items: center; /* Centrer horizontalement */
+      justify-content: flex-start; /* Alignement du contenu en haut */
+      padding: 16px; /* Ajouter un peu de padding à l'intérieur de l'item */
+      width: 100%; /* S'assurer que l'élément prend toute la largeur disponible */
 
-  margin: 0;
+      ion-img {
+        width: 100%; /* Ajuster la largeur pour qu'elle occupe toute la largeur du parent */
+        max-width: 359px; /* Limiter la largeur maximale de l'image */
+        height: auto; /* Ajuster automatiquement la hauteur pour garder les proportions */
+        border-radius: 15px; /* Arrondir les coins de l'image */
+        margin-bottom: 10px; /* Espace sous l'image avant le texte */
+      }
+
+      ion-label {
+        display: flex;
+        flex-direction: column; /* Aligner les textes (h2 et p) verticalement */
+        align-items: center; /* Centrer horizontalement le texte */
+        justify-content: center; /* Centrer verticalement le texte */
+        text-align: center; /* Centrer le texte dans son conteneur */
+        width: 100%; /* S'assurer que le label occupe toute la largeur disponible */
+
+        h2 {
+          font-size: 18px;
+          font-weight: bold;
+          margin: 0; /* Pas d'espacement autour du titre */
+          color: #333; /* Couleur du titre */
+        }
+
+        p {
+          font-size: 14px;
+          color: #999999;
+          margin-top: 5px; /* Espacement sous le titre */
+        }
+      }
+    }
+  }
 }
 
-#container a {
-  text-decoration: none;
-} 
-ion-item {
-  margin-bottom: 10px;
+/* Styles pour la barre d'onglets */
+ion-tabs {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  padding: 4px 0;
 }
 
-ion-button {
-  margin-left: 10px;
+ion-tab-bar {
+  background-color: #FFFFFF;
+  border-radius: 10px 0px 0px 0px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  justify-content: space-around;
+}
+
+ion-tab-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+  width: 25%;
+}
+
+ion-content {
+  position: relative;
+  z-index: 1;
 }

@@ -1,64 +1,26 @@
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: #f7f7f7;
-  }
+.search-wrapper {
+  margin: 10px;
+}
+
+.custom-searchbar {
+  background: transparent; /* Background transparent */
+ 
+  --placeholder-color: #808080; /* Placeholder color gray */
+  --input-background-color:#4DA768 ;
+  --icon-color: #808080; /* Search icon color gray */
+  --color: #000000; /* Text color */
+  --padding-start: 10px;
+  border: 1px solid #4DA768; border-radius: 25px; 
+   
   
-  .chat-messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-  }
-  
-  .chat-input {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-  }
-  
-  .chat-input ion-button {
-    margin-right: 10px;
-  }
-  
-  .chat-input input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    outline: none;
-  }
-  
-  .football-icon {
-    font-size: 24px;
-    margin-right: 10px;
-  }
-  
-  .my-message {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  
-  .other-message {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  
-  .message-text {
-    background-color: #e0e0e0;
-    border-radius: 15px;
-    padding: 10px;
-    max-width: 70%;
-  }
-  
-  .my-message .message-text {
-    background-color: #4c57af;
-    color: white;
-  }
-  
-  .other-message .message-text {
-    background-color: #f1f1f1;
-  }
-  
+}
+
+ion-searchbar::part(icon) {
+  --color: #808080; /* Gray search icon color */
+}
+
+.time-content {
+  font-size: 0.8rem;
+  color: gray;
+  text-align: right;
+}

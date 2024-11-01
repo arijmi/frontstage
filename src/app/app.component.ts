@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from './auth-service.service';
 import { MenuController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  userProfile: { name: string; description: string } = {
+export class AppComponent implements OnInit, OnDestroy {
+  userProfile: { name: string; description: string; avatarUrl: string } = {
     name: '',
-    description: '',
+    description: 'Joueur 1',
+    avatarUrl: '../assets/images/Ellipse 5.png'
   };
+  private profileImageSubscription: Subscription;
 
   constructor(
     private authService: AuthServiceService,
@@ -24,28 +27,37 @@ export class AppComponent implements OnInit {
     this.authService.getProfile().then(user => {
       if (user) {
         this.userProfile.name = user.displayName || 'User Name';
-        this.userProfile.description = 'Joueur 1'; // Remplacez cela par la vraie description de l'utilisateur
-        console.log('User profile loaded:', this.userProfile);
+        this.userProfile.avatarUrl = user.photoURL || '../assets/images/Ellipse 5.png';
       }
     }).catch(error => {
       console.error('Error getting user profile:', error);
     });
+
+    // S'abonner aux changements d'image de profil
+    this.profileImageSubscription = this.authService.profileImage$.subscribe(newImageUrl => {
+      this.userProfile.avatarUrl = newImageUrl;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.profileImageSubscription) {
+      this.profileImageSubscription.unsubscribe();
+    }
+  }
+
+  closeMenu() {
+    this.menuCtrl.close();
   }
 
   goToProfile() {
-    console.log('Navigating to profile...');
-    this.router.navigate(['/profile']);
-  }
-
-  updateProfile(name: string, description: string) {
-    this.userProfile.name = name;
-    this.userProfile.description = description;
-    this.menuCtrl.close(); // Ferme le menu après la mise à jour
+    this.closeMenu();
+    this.router.navigate(['/edit-profile']);
   }
 
   signOut() {
     this.authService.signOut().then(() => {
       this.router.navigate(['/landing']);
+      this.closeMenu();
     });
   }
 }

@@ -1,13 +1,26 @@
-<ion-content [fullscreen]="true">
-  <ion-title  style="margin-top: 100px;">Almost there</ion-title>
-  <p class="subtitle">Please enter 4 digit code you have recieved for verification</p>
-  <div class="inputfield">
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
+<ion-content [fullscreen]="true" style="--padding-bottom: 20px;">
+  <!-- Ajout de l'image en haut avec une taille réduite et centrée -->
+  <div class="image-container" style="text-align: center; margin-bottom: 20px;">
+    <img src="assets/images/verfi.png" alt="Verification" class="top-image" style="max-width: 80%; height: auto;" />
   </div>
-  <div class="btnContainer" >
-  <ion-button  shape="round" color="secondary" class="btn" [routerLink]="['/home']">Verify</ion-button>
+
+  <!-- Titre en gras -->
+  <h1 style="font-weight: bold; text-align: center; margin-top: 20px;">Verification Email</h1>
+
+  <!-- Sous-titre avec exemple d'adresse email -->
+  <p class="subtitle" style="text-align: center; margin-bottom: 5px;">Please enter your code sent to</p>
+  <p class="subtitle" style="text-align: center;">example@email.com</p>
+
+  <!-- Champs de saisie pour le code -->
+  <div class="inputfield" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <input type="number" maxlength="1" class="input" min="0" required style="border: 1px solid #4DA768; border-radius: 5px; padding: 10px; " />
+    <input type="number" maxlength="1" class="input" min="0" required style="border: 1px solid #4DA768; border-radius: 5px; padding: 10px; " />
+    <input type="number" maxlength="1" class="input" min="0" required style="border: 1px solid #4DA768; border-radius: 5px; padding: 10px; " />
+    <input type="number" maxlength="1" class="input" min="0" required style="border: 1px solid #4DA768; border-radius: 5px; padding: 10px; " />
+  </div>
+
+  <!-- Bouton de vérification -->
+  <div class="btnContainer" style="text-align: center; margin-top: 50px;">
+    <ion-button shape="round"  class="btn" [routerLink]="['/new-password']">Verify</ion-button>
   </div>
 </ion-content>

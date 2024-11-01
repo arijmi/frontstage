@@ -1,33 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Chat </ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
-  <div class="chat-container">
-    <div class="chat-messages" #chatMessages>
-      <div *ngFor="let message of messages" [ngClass]="{'my-message': message.isMe, 'other-message': !message.isMe}">
-        <ion-icon name="football " [ngStyle]="{'color': message.isMe ? 'red' : 'white'}" class="football-icon"></ion-icon>
-        <div *ngIf="message.text" class="message-text">{{ message.text }}</div>
-        <img *ngIf="message.imageUrl" [src]="message.imageUrl" class="message-image" />
-      </div>
-    </div>
-    <div class="chat-input">
-      <ion-button (click)="fileInput.click()">
-        <ion-icon name="image" slot="icon-only" color="Blank"></ion-icon>
-      </ion-button>
-      <ion-button (click)="addFile()">
-        <ion-icon name="attach" slot="icon-only" color="Blank"></ion-icon>
-      </ion-button>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput style="display: none;">
-      <input type="text" [(ngModel)]="newMessage" placeholder="Type your message...">
-      <ion-button (click)="sendMessage()">
-        <ion-icon name="send" slot="icon-only" color="Blank"></ion-icon>
-      </ion-button>
-    </div>
+<ion-content>
+  <!-- En-tête personnalisé -->
+  <div style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px;">
+    <ion-back-button style="position: absolute; left: 10px; color: black;" icon-only="true" defaultHref="/"></ion-back-button>
+    <h2 style="text-align: center; color: #000; margin: 0;">Messages</h2>
   </div>
+
+  <!-- Barre de recherche -->
+  <ion-item style="border: 1px solid #4DA768; border-radius: 25px; margin-bottom: 40px; margin-top: 35px; max-width: 90%; margin-left: auto; margin-right: auto;">
+    <ion-icon name="search" slot="start" style="color: #808080;"></ion-icon>
+    <ion-input 
+      type="text" 
+      placeholder="Search player"
+      (ionInput)="filterFriends($event)" 
+      style="border: none; border-radius: 25px; color: #808080;"
+      clear-input>
+    </ion-input>
+  </ion-item>
+
+  <!-- Liste des messages -->
+  <ion-list>
+    <ion-item *ngFor="let chat of filteredChats" (click)="openChatDetail(chat)">
+      <ion-avatar slot="start">
+        <img [src]="chat.image">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ chat.name }}</h2>
+        <p>{{ chat.message }}</p>
+      </ion-label>
+      <div class="time-content">
+        <p>{{ chat.time }}</p>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

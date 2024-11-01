@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+
   {
     path: '',
     redirectTo: 'landing',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'login',
@@ -75,7 +76,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/event-create/event-create.module').then( m => m.EventCreatePageModule)
   },
   {
-    path: 'event-detail',
+   path: 'event-detail/:id',
     loadChildren: () => import('./pages/event-detail/event-detail.module').then( m => m.EventDetailPageModule)
   },
   {
@@ -113,6 +114,38 @@ const routes: Routes = [
   {
     path: 'chat-detail',
     loadChildren: () => import('./pages/chat-detail/chat-detail.module').then( m => m.ChatDetailPageModule)
+  },
+  {
+    path: 'skip1',
+    loadChildren: () => import('./pages/skip1/skip1.module').then( m => m.Skip1PageModule)
+  },
+  {
+    path: 'skip2',
+    loadChildren: () => import('./pages/skip2/skip2.module').then( m => m.Skip2PageModule)
+  },
+  {
+    path: 'skip3',
+    loadChildren: () => import('./pages/skip3/skip3.module').then( m => m.Skip3PageModule)
+  },
+  {
+    path: 'skip4',
+    loadChildren: () => import('./pages/skip4/skip4.module').then( m => m.Skip4PageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'new-password',
+    loadChildren: () => import('./pages/new-password/new-password.module').then( m => m.NewPasswordPageModule)
+  },
+  {
+    path: 'passwordchanged',
+    loadChildren: () => import('./pages/passwordchanged/passwordchanged.module').then( m => m.PasswordchangedPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   },
  
 

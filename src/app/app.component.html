@@ -3,7 +3,7 @@
     <ion-content>
       <div class="menu-header-bg"></div>
       <div class="header-content">
-        <img src="../assets/Ellipse 6.png" alt="">
+        <img [src]="userProfile.avatarUrl" alt="Profile Picture">
         <ion-label>
           <h2>{{ userProfile.name }}</h2>
           <p>{{ userProfile.description }}</p>
@@ -15,11 +15,11 @@
         </ion-button>
       </div>
       <ion-list class="menu-items" lines="none">
-        <ion-item [routerLink]="'/dashboard'">
+        <ion-item [routerLink]="'/dashboard'" (click)="closeMenu()">
           <ion-icon name="pie-chart-outline"></ion-icon>
           Dashboard
         </ion-item>
-        <ion-item [routerLink]="'/chat'">
+        <ion-item [routerLink]="'/chat'" (click)="closeMenu()">
           <ion-icon name="mail-outline"></ion-icon>
           Messages
         </ion-item>

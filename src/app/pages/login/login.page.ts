@@ -68,4 +68,15 @@ export class LoginPage implements OnInit {
     });
     await toast.present();
   }
+  togglePasswordVisibility() {
+    const passwordInput = document.querySelector('ion-input[type="password"]');
+    
+    if (passwordInput) { // Vérifie si passwordInput n'est pas null
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+    } else {
+      console.error('Le champ mot de passe n\'a pas été trouvé.');
+    }
+  }
+  
 }

@@ -1,33 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Chat</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/chat-list"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <!-- En-tête personnalisé -->
+  <div style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px;">
+    <ion-back-button style="position: absolute; left: 10px; color: black;" icon-only="true" defaultHref="/"></ion-back-button>
+    <h2 style="text-align: center; color: #000; margin: 0;">Messages</h2>
+  </div>
 
-<ion-content class="chat-container">
-  <!-- Liste des messages -->
-  <div class="message-list">
-    <div *ngFor="let message of messages" [ngClass]="{'sent': message.isMe, 'received': !message.isMe}" class="message-item">
-      <div class="message-bubble" [ngClass]="{'sent': message.isMe}">
-        <div *ngIf="message.text">{{ message.text }}</div>
-        <div *ngIf="message.imageUrl">
-          <img [src]="message.imageUrl" alt="Image envoyée">
-        </div>
+  <!-- Affichage des messages -->
+  <div class="chat-container">
+    <div *ngFor="let msg of messages" [ngClass]="{'sent-message': msg.name === 'You', 'received-message': msg.name !== 'You'}">
+      <div class="message-content">
+        <ion-avatar *ngIf="msg.name !== 'You'" slot="start">
+          <img [src]="msg.image">
+        </ion-avatar>
+        <div class="bubble">{{ msg.message }}</div>
       </div>
+      <small class="time">{{ msg.time }}</small>
     </div>
   </div>
 
-  <!-- Barre d'envoi de message -->
-  <div class="chat-input-bar">
-    <ion-input [(ngModel)]="newMessage" placeholder="Tapez un message"></ion-input>
-    <ion-button (click)="sendMessage()">Envoyer</ion-button>
-    <ion-button (click)="addPhoto()">
-      <ion-icon name="image-outline"></ion-icon>
+  <!-- Zone de saisie pour répondre (input en bas de l'écran) -->
+  <div class="input-footer">
+    <div class="input-container">
+      <ion-button fill="clear" class="add-icon">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+
+      <ion-input placeholder="Messages ..." [(ngModel)]="replyMessage" class="custom-input" clearInput></ion-input>
+
+      <ion-button fill="clear" class="smile-icon">
+        <ion-icon name="happy-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <ion-button class="send-button" (click)="sendReply()" fill="solid">
+      <ion-icon name="send-outline"></ion-icon>
     </ion-button>
-    <!-- Champ de sélection de fichier caché -->
-    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
   </div>
 </ion-content>

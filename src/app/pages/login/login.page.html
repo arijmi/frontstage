@@ -1,63 +1,56 @@
 <div class="sign-up-interface">
-  <ion-header class="ion-no-border">
-  
-  </ion-header>
+  <ion-header class="ion-no-border"></ion-header>
 
   <ion-content>
     <ion-img src="assets/images/header.png"></ion-img>
 
-    
-      <ion-card-header>
-        <ion-card-title>Sign In</ion-card-title>
-      </ion-card-header>
+    <ion-card-header>
+      <ion-card-title>Sign In</ion-card-title>
+    </ion-card-header>
 
-      <ion-card-content>
-        <form [formGroup]="ionicForm" novalidate>
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" formControlName="email" required></ion-input>
-          </ion-item>
+    <ion-card-content>
+      <form [formGroup]="ionicForm" (ngSubmit)="loginWithSpring()">
+        <ion-item>
+          <ion-input type="email" formControlName="email" label="Email"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" formControlName="password" required></ion-input>
-            <div>
-            <ion-icon  (click)="togglePasswordVisibility()"></ion-icon>
+        <ion-item>
+          <ion-input type="password" formControlName="password" label="Password"></ion-input>
+          <div>
+            <ion-icon name="eye" (click)="togglePasswordVisibility()"></ion-icon>
           </div>
-          </ion-item>
-          
+        </ion-item>
 
-          <div class="forgotpassword">
-            <a [routerLink]="['/forgot-password']" class="forgotpassword-link">Forgot your Password?</a>
-          </div>
-
-          <ion-button expand="block" type="submit" (click)="login()">
-            <ion-label>Sign In</ion-label>
-          </ion-button>
-        </form>
-
-        <div class="or-container">
-          <hr class="line">
-          <p class="or-text">or</p>
-          <hr class="line">
+        <div class="forgotpassword">
+          <a [routerLink]="['/forgot-password']" class="forgotpassword-link">Forgot your Password?</a>
         </div>
 
-        <div class="social-login">
-          <a href="https://accounts.google.com/signin" class="social-item">
-            <img src="assets/images/Social Icons.png" alt="Google" class="social-icon">
-          </a>
-          <a href="https://www.facebook.com/login" class="social-item">
-            <img src="assets/images/Social Icons (1).png" alt="Facebook" class="social-icon">
-          </a>
-          <a href="https://www.linkedin.com/login" class="social-item">
-            <img src="assets/images/Social Icons (2).png" alt="LinkedIn" class="social-icon">
-          </a>
-        </div>
+        <ion-button expand="block"  type="submit">
+          <ion-label>Sign In </ion-label>
+        </ion-button>
+      </form>
 
-        <div class="sign-in-text">
-          <p>Don’t Have an Account? <a [routerLink]="['/signup']" class="sign-in-link">Sign Up</a></p>
-        </div>
-      </ion-card-content>
-   
+      <div class="or-container">
+        <hr class="line">
+        <p class="or-text">or</p>
+        <hr class="line">
+      </div>
+
+      <div class="social-login">
+        <a href="https://accounts.google.com/signin" class="social-item" aria-label="Sign in with Google">
+          <img src="assets/images/Social Icons.png" alt="Google" class="social-icon">
+        </a>
+        <a href="https://www.facebook.com/login" class="social-item" aria-label="Sign in with Facebook">
+          <img src="assets/images/Social Icons (1).png" alt="Facebook" class="social-icon">
+        </a>
+        <a href="https://www.linkedin.com/login" class="social-item" aria-label="Sign in with LinkedIn">
+          <img src="assets/images/Social Icons (2).png" alt="LinkedIn" class="social-icon">
+        </a>
+      </div>
+
+      <div class="sign-in-text">
+        <p>Don’t Have an Account? <a [routerLink]="['/signup']" class="sign-in-link">Sign Up</a></p>
+      </div>
+    </ion-card-content>
   </ion-content>
 </div>

@@ -16,25 +16,21 @@ export class EventDetailPage implements OnInit {
     this.loadEventDetails(eventId);
   }
   ngOnInit() {
-    const eventId = this.route.snapshot.paramMap.get('id');
+    const eventId = Number(this.route.snapshot.paramMap.get('id'));
     if (eventId) {
-      const event = this.eventService.getEventById(+eventId);
-      if (event) {
-        this.event = event;
-      } else {
-        console.error('Event not found');
-        // Optionnel: redirigez l'utilisateur ou affichez un message d'erreur
-      }
-    } else {
-      console.error('No event ID provided');
-      // Optionnel: redirigez l'utilisateur ou affichez un message d'erreur
+      this.eventService.getEventById(eventId).subscribe({
+        next: (event) => (this.event = event),
+        error: (error) => console.error('Error fetching event details:', error)
+      });
     }
   }
   
 
   loadEventDetails(eventId: number) {
-    // Load event details from the server or local data
-    this.event = { id: eventId, title: 'Match 1', date: '2024-09-01', location: 'Stadium A', description: 'Description 1' };
+    this.eventService.getEventById(eventId).subscribe({
+      next: (event: Event) => (this.event = event),
+      error: (error: any) => console.error('Error fetching event details:', error)
+    });
   }
   inviteMembers() {
     this.router.navigate(['/invite-member', { id: this.event.id }]);

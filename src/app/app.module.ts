@@ -12,6 +12,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventService } from './services/event.service';
 import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { UserService } from './services/user.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // Utilisation de l'API compat
     AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },EventService,AuthServiceService,UserService],
   bootstrap: [AppComponent],

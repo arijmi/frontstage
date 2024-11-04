@@ -12,6 +12,6 @@ export class Skip4Page  {
 
   
   goToSignIn() {
-    this.navCtrl.navigateForward('/login'); }
+    this.navCtrl.navigateForward('/home'); }
 
 }

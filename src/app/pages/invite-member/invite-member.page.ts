@@ -15,13 +15,19 @@ export class InviteMemberPage implements OnInit {
   constructor(private route: ActivatedRoute, private eventService: EventService) {}
 
   ngOnInit() {
-    const eventId = parseInt(this.route.snapshot.paramMap.get('id') || '', 10);
-    if (!isNaN(eventId)) {
-      this.event = this.eventService.getEventById(eventId);
-    } else {
-      // Gérer le cas où l'ID est invalide ou non trouvé
-      console.error('Invalid event ID');
+    const eventId = Number(this.route.snapshot.paramMap.get('id'));
+    if (eventId) {
+      this.eventService.getEventById(eventId).subscribe({
+        next: (event) => (this.event = event),
+        error: (error) => console.error('Error fetching event for invite:', error)
+      });
     }
+  }
+  loadEvent(eventId: number) {
+    this.eventService.getEventById(eventId).subscribe({
+      next: (event: Event) => (this.event = event),
+      error: (error: any) => console.error('Error fetching event for invite:', error)
+    });
   }
 
   sendInvitation() {

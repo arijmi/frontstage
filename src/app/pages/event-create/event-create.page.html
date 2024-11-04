@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <div style="display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px;">
     <ion-back-button style="position: absolute; left: 10px; color: black;" icon-only="true" defaultHref="/event-list"></ion-back-button>
-    <h2 style="text-align: center; color: #000; margin: 0;">Add Match </h2>
+    <h2 style="text-align: center; color: #000; margin: 0;">Add Match</h2>
   </div>
   <form (ngSubmit)="saveEvent()">
     <ion-item>
@@ -16,13 +16,21 @@
 
     <ion-item>
       <ion-label position="floating">Location</ion-label>
-      <ion-input [(ngModel)]="event.location" name="location" readonly></ion-input>
-      <ion-button fill="outline" (click)="openLocationPicker()">Select Location</ion-button>
+      <ion-input [(ngModel)]="event.location" name="location"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Description</ion-label>
       <ion-textarea [(ngModel)]="event.description" name="description"></ion-textarea>
+    </ion-item>
+
+    <!-- New Event Type Dropdown -->
+    <ion-item>
+      <ion-label position="floating">Event Type</ion-label>
+      <ion-select [(ngModel)]="event.eventType" name="eventType" required>
+        <ion-select-option value="MINI_SOCCER">Mini Soccer</ion-select-option>
+        <!-- Add other event types here if necessary -->
+      </ion-select>
     </ion-item>
 
     <ion-list>
@@ -31,15 +39,15 @@
           <ion-icon name="eye-outline" style="color: #3880ff;"></ion-icon>
           <ion-label style="color: #3880ff;">Match Visibility</ion-label>
         </ion-list-header>
-
+    
         <ion-item>
           <ion-label style="color: #3880ff;">Public</ion-label>
-          <ion-radio slot="start" value="public"></ion-radio>
+          <ion-radio slot="start" value="PUBLIC"></ion-radio> <!-- Use uppercase PUBLIC -->
         </ion-item>
-
+    
         <ion-item>
           <ion-label style="color: #3880ff;">Private</ion-label>
-          <ion-radio slot="start" value="private"></ion-radio>
+          <ion-radio slot="start" value="PRIVATE"></ion-radio> <!-- Use uppercase PRIVATE -->
         </ion-item>
       </ion-radio-group>
     </ion-list>

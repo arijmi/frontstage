@@ -1,43 +1,78 @@
 import { Injectable } from '@angular/core';
-import { Event } from '../models/event.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
+import { Event } from '../models/event.model';
+import { catchError } from 'rxjs/operators';
+import { AuthServiceService } from '../auth-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  // Liste des événements
-  private events: Event[] = [
-    { id: 1, title: 'Match 1', date: '2024-09-01', location: 'Stadium A', description: 'First match description' },
-    { id: 2, title: 'Match 2', date: '2024-09-15', location: 'Stadium B', description: 'Second match description' },
-    // Ajoutez d'autres événements si nécessaire
-  ];
+  private eventApiUrl = 'http://localhost:8080/api/events';
 
-  // Retourne tous les événements
-  getEvents(): Event[] {
-    return this.events;
+  constructor(private http: HttpClient, private authService: AuthServiceService) {}
+
+  
+  // Method to get all events
+  getEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(this.eventApiUrl).pipe(
+      catchError((error) => {
+        console.error('Error fetching events:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  // Retourne un événement par son ID
-  getEventById(id: number): Event | undefined {
-    return this.events.find(event => event.id === id);
+  // Method to get a single event by ID
+  getEventById(eventId: number): Observable<Event> {
+    return this.http.get<Event>(`${this.eventApiUrl}/${eventId}`).pipe(
+      catchError((error) => {
+        console.error(`Error fetching event with ID ${eventId}:`, error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  // Crée un nouvel événement
-  createEvent(newEvent: Event): void {
-    this.events.push(newEvent);
-  }
-
-  // Met à jour un événement existant
-  updateEvent(updatedEvent: Event): void {
-    const index = this.events.findIndex(event => event.id === updatedEvent.id);
-    if (index !== -1) {
-      this.events[index] = updatedEvent;
+  // Method for deleting an event
+  deleteEvent(eventId: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('No token found. Please log in.');
+      return throwError(() => new Error('Unauthorized: No token found.'));
     }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete(`${this.eventApiUrl}/${eventId}`, { headers }).pipe(
+      catchError((error) => {
+        console.error(`Error deleting event with ID ${eventId}:`, error);
+        return throwError(() => error);
+      })
+    );
+  }
+  // Method for creating an event
+createEvent(eventData: any): Observable<any> {
+  const token = this.authService.getToken();
+  if (!token) {
+    console.error('No token found. Please log in.');
+    return throwError(() => new Error('Unauthorized: No token found.'));
   }
 
-  // Supprime un événement par son ID
-  deleteEvent(id: number): void {
-    this.events = this.events.filter(event => event.id !== id);
-  }
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post(this.eventApiUrl, eventData, { headers }).pipe(
+    catchError((error) => {
+      console.error('Error creating event:', error);
+      return throwError(() => error);
+    })
+  );
+}
+
 }

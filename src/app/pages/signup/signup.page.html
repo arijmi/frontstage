@@ -1,7 +1,5 @@
 <div class="sign-up-interface">
-  <ion-header >
-   
-  </ion-header>
+  <ion-header class="ion-no-border"></ion-header>
 
   <ion-content>
     <ion-img src="assets/images/header.png"></ion-img>
@@ -11,31 +9,47 @@
     </ion-card-header>
 
     <ion-card-content>
-      <form>
-        <ion-item>
-          <ion-label position="floating">Username</ion-label>
-          <ion-input type="text" required></ion-input>
-        </ion-item>
+      <form [formGroup]="ionicForm" (ngSubmit)="signUP()">
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" required></ion-input>
+          <ion-input type="email" formControlName="email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" required></ion-input>
+          <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Confirm Password</ion-label>
-          <ion-input type="password" required></ion-input>
+          <ion-label position="floating">Role</ion-label>
+          <ion-input type="text" formControlName="role"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input type="text" formControlName="lastName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Age</ion-label>
+          <ion-input type="number" formControlName="age"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Position</ion-label>
+          <ion-input type="text" formControlName="position"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Experience</ion-label>
+          <ion-input type="number" formControlName="experience"></ion-input>
         </ion-item>
 
         <ion-button expand="block" type="submit">
-          <ion-label>Create account</ion-label>
+          <ion-label>Create Account</ion-label>
         </ion-button>
       </form>
 
       <div class="sign-up-text">
-        <p>Already have an Account? <a [routerLink]="['/login']" class="sign-up-link">Sign In</a></p>
+        <p>Already have an account? <a [routerLink]="['/login']" class="sign-up-link">Sign In</a></p>
       </div>
     </ion-card-content>
   </ion-content>

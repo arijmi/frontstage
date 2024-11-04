@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/auth-service.service';
 
 interface Event {
-  id?: number;
   title: string;
   date: string;
   location: string;
   description: string;
-  visibility: string; 
+  visibility: string;
+  numberOfPlayersPerTeam: number;
+  eventType: string; 
 }
 
 @Component({
@@ -15,50 +18,62 @@ interface Event {
   templateUrl: './event-create.page.html',
   styleUrls: ['./event-create.page.scss'],
 })
-export class EventCreatePage {
+export class EventCreatePage implements OnInit {
+  event: Event = {
+    title: '',
+    date: new Date().toISOString(),
+    location: '',
+    description: '',
+    visibility: 'PUBLIC',
+    numberOfPlayersPerTeam: 1,
+    eventType: 'MINI_SOCCER' 
+  };
 
-  event: Event = { title: '', date: new Date().toISOString(), location: '', description: '', visibility: 'public' }; // Valeur par défaut ajoutée
+  constructor(
+    private router: Router,
+    private authService: AuthServiceService ,
+    private http: HttpClient
+  ) {}
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-    const eventId = this.route.snapshot.paramMap.get('id');
-    if (eventId) {
-      this.loadEventDetails(parseInt(eventId, 10));
-    }
-  }
-
-  loadEventDetails(eventId: number) {
-    const existingEvent = { id: eventId, title: 'Match 1', date: '2024-09-01', location: 'Stadium A', description: 'Description 1', visibility: 'private' };
-    this.event = existingEvent;
-  }
+  ngOnInit() {}
 
   saveEvent() {
-    if (this.event.id) {
-      // Update the event
-      console.log('Updating event:', this.event);
-    } else {
-      // Create a new event
-      console.log('Creating event:', this.event);
-    }
-    this.router.navigate(['/event-list']);
+    const eventData = {
+      name: this.event.title, // Ensure this maps correctly
+      description: this.event.description,
+      eventType: this.event.eventType,
+      dateTime: new Date(this.event.date).toISOString(), // Format as ISO string
+      location: this.event.location,
+      numberOfPlayersPerTeam: this.event.numberOfPlayersPerTeam,
+      visibility: this.event.visibility.toUpperCase() // Ensure uppercase
+    };
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json'
+    });
+  
+    this.http.post('http://localhost:8080/api/events', eventData, { headers, responseType: 'text' }).subscribe({
+      next: (response) => {
+        console.log('Event created successfully:', response);
+        this.router.navigate(['/event-list']);
+      },
+      error: (error) => {
+        console.error('Error creating event:', error.message, error);
+        if (error.status === 401) {
+          console.error('Unauthorized: Please log in again.');
+          this.router.navigate(['/login']);
+        }
+      }
+    });
   }
+  
+  
 
   openLocationPicker() {
     this.router.navigate(['pickup-location'], {
       queryParams: { position: 'destination' },
-      state: { pickupLocation: this.event.location } // Optionnel, si vous souhaitez pré-remplir le champ
-    });
-  }
-
-  ngOnInit() {
-    // Écoutez les paramètres de requête pour récupérer l'adresse de la page de localisation
-    this.router.events.subscribe(() => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation && navigation.extras.state) {
-        const pickupLocation = navigation.extras.state['pickupLocation'];
-        if (pickupLocation) {
-          this.event.location = pickupLocation;
-        }
-      }
+      state: { pickupLocation: this.event.location }
     });
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,46 +19,45 @@ export class LoginPage implements OnInit {
     private authService: AuthServiceService,
     private router: Router,
     public formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
-      email: ['', [
-        Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
-      ]],
-      password: ['', [Validators.required]],
+      email: [''],       // Removed Validators
+      password: [''],    // Removed Validators
     });
   }
 
-  async login() {
+  // Spring Boot Login
+  async loginWithSpring() {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    if (this.ionicForm.valid) {
-      try {
-        const user = await this.authService.loginUser(
-          this.ionicForm.value.email,
-          this.ionicForm.value.password
-        );
-        this.router.navigate(['/home']);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : 'Une erreur est survenue.';
-        this.presentToast(message);
-        console.log(error);
-      } finally {
-        loading.dismiss();
-      }
-    } else {
-      console.log('Veuillez fournir toutes les valeurs requises !');
-      loading.dismiss();
-    }
+    this.authService.loginWithSpring(
+      this.ionicForm.value.email,
+      this.ionicForm.value.password
+    ).subscribe({
+      next: (response) => {
+        const loginCount = response.loginCount;
+
+        // Route based on the loginCount value
+        if (loginCount === 1) {
+          this.router.navigate(['/skip1']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+
+        this.presentToast('Login successful with Spring backend!');
+      },
+      error: (error) => {
+        this.presentToast('Spring login failed. Please try again.');
+        console.error(error);
+      },
+      complete: () => loading.dismiss()
+    });
   }
 
-  get errorControl() {
-    return this.ionicForm.controls;
-  }
-
+  // Display toast messages
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
@@ -68,15 +66,18 @@ export class LoginPage implements OnInit {
     });
     await toast.present();
   }
+
+  // Toggle password visibility
   togglePasswordVisibility() {
-    const passwordInput = document.querySelector('ion-input[type="password"]');
-    
-    if (passwordInput) { // Vérifie si passwordInput n'est pas null
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-    } else {
-      console.error('Le champ mot de passe n\'a pas été trouvé.');
+    const passwordInput = document.querySelector('ion-input[formControlName="password"]');
+    if (passwordInput) {
+      const currentType = passwordInput.getAttribute('type');
+      passwordInput.setAttribute('type', currentType === 'password' ? 'text' : 'password');
     }
   }
-  
+
+  // Form controls getter for validation (if needed for future use)
+  get errorControl() {
+    return this.ionicForm.controls;
+  }
 }

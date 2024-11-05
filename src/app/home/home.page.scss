@@ -102,6 +102,7 @@ ion-tabs {
   position: relative;
   bottom: 0;
   padding: 4px 0;
+  contain: none !important;
 }
 
 ion-tab-bar {

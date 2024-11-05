@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { EventDetailPageRoutingModule } from './event-detail-routing.module';
 
 import { EventDetailPage } from './event-detail.page';
+import { Player } from 'src/app/models/player.model';
+
 
 @NgModule({
   imports: [

@@ -1,21 +1,49 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>{{ event?.title || 'Event Details' }}</ion-title>
+    <ion-title>Match</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card *ngIf="event">
-    <ion-card-header>
-      <ion-card-title>{{ event.title }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Date: {{ event.date }}</p>
-      <p>Location: {{ event.location }}</p>
-      <p>Description: {{ event.description }}</p>
-    </ion-card-content>
-  </ion-card>
+<ion-content>
+  <!-- Match Information Section -->
+  <div class="match-info">
+    <h2>{{ match?.location }}</h2>
+    <p>{{ match?.venue }}</p>
+    <p>{{ match?.date }}</p>
+    <p>{{ match?.time }}</p>
+  </div>
 
-  <ion-button expand="full" (click)=" inviteMembers()" *ngIf="event">Send Invitations</ion-button>
-  <ion-button expand="full" color="success" (click)="manageInscriptions()" *ngIf="event">Manage Inscriptions</ion-button>
+  <!-- Teams Section -->
+  <div class="teams">
+    <h3>Team1</h3>
+    <div class="team-list">
+      <p>{{ getTeamDisplay(match.team1) }}</p>
+      <ion-avatar *ngFor="let player of match?.team1?.slice(0, 3)">
+        <img [src]="player.avatarUrl" />
+      </ion-avatar>
+    </div>
+
+    <h3>Team2</h3>
+    <div class="team-list">
+      <p>{{ getTeamDisplay(match.team2) }}</p>
+      <ion-avatar *ngFor="let player of match?.team2?.slice(0, 3)">
+        <img [src]="player.avatarUrl" />
+      </ion-avatar>
+    </div>
+  </div>
+
+  <!-- Join Team Section -->
+  <div class="join-match">
+    <h3>Join Match</h3>
+    <ion-item>
+      <ion-label>Team</ion-label>
+      <ion-select [(ngModel)]="selectedTeam" placeholder="Select a team">
+        <ion-select-option value="team1">Team1</ion-select-option>
+        <ion-select-option value="team2">Team2</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" color="success" (click)="joinTeam()" [disabled]="!selectedTeam">
+      Send
+    </ion-button>
+  </div>
 </ion-content>

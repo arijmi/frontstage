@@ -1,0 +1,113 @@
+// General styling for the page
+ion-content {
+  padding: 16px;
+  background-color: #f8f9fb;
+}
+
+// Header styling
+ion-header {
+  ion-toolbar {
+    background-color: #ffffff;
+    ion-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+}
+
+// Match information section
+.match-info {
+  text-align: center;
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 2px 0;
+  }
+}
+
+// Teams section styling
+.teams {
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    margin: 16px 0 8px;
+  }
+
+  .team-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    p {
+      font-size: 14px;
+      color: #555;
+      margin: 0;
+      flex: 1;
+    }
+
+    ion-avatar {
+      width: 36px;
+      height: 36px;
+    }
+
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+}
+
+// Join Match section styling
+.join-match {
+  margin-top: 24px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 12px;
+  }
+
+  ion-item {
+    --background: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  ion-label {
+    color: #555;
+  }
+
+  ion-select {
+    font-size: 14px;
+  }
+
+  ion-button {
+    width: 100%;
+    border-radius: 8px;
+    font-weight: bold;
+
+    &.button-success {
+      --background: #28a745;
+      --background-activated: #218838;
+      --background-focused: #218838;
+      --background-hover: #218838;
+      --color: #ffffff;
+    }
+  }
+}

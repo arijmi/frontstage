@@ -23,11 +23,14 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/journals']);
   }
 
- 
+
   goToEvent(){
     this.router.navigate(['/event-list']);
   }
   goToTeam(){
     this.router.navigate(['/team-list']);
+  }
+  goTonotf(){
+    this.router.navigate(['/not']);
   }
 }

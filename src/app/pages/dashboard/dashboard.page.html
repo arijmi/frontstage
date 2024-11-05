@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-    
+
 
 
         <ion-col size="12" size-md="3">
@@ -50,7 +50,7 @@
 
       <!-- Card: Notifications -->
       <ion-col size="12" size-md="3">
-        <ion-card>
+        <ion-card (click)="goTonotf()">
           <ion-card-header>
             <ion-card-title>Notifications</ion-card-title>
           </ion-card-header>
@@ -61,8 +61,8 @@
         </ion-card>
       </ion-col>
 
-    
-  
+
+
       <!-- Card: Journal -->
       <ion-col size="12" size-md="3">
         <ion-card (click)="goToJournals()">

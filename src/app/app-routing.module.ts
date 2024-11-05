@@ -44,7 +44,7 @@ const routes: Routes = [
     path: 'journal',
     loadChildren: () => import('./pages/journal/journal.module').then( m => m.JournalPageModule)
   },
-  
+
   {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
@@ -60,13 +60,13 @@ const routes: Routes = [
     path: 'select-contacts',
     loadChildren: () => import('./pages/select-contacts/select-contacts.module').then( m => m.SelectContactsPageModule)
   },
- 
+
   {
     path: 'player-stats',
     loadChildren: () => import('./pages/player-stats/player-stats.module').then( m => m.PlayerStatsPageModule)
   },
- 
-  
+
+
   {
     path: 'event-list',
     loadChildren: () => import('./pages/event-list/event-list.module').then( m => m.EventListPageModule)
@@ -148,6 +148,12 @@ const routes: Routes = [
     loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   },
  
+  {
+    path: 'not',
+    loadChildren: () => import('./pages/not/not.module').then( m => m.NotPageModule)
+  },
+
+
 
 ];
 
